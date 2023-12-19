@@ -15,6 +15,7 @@ def call(String env, String awsRegion="eu-west-1") {
 
                 stage('preBuildCheck') {
                     container('ubuntu') {
+                        echo "ls -a"
                         preBuildChecks()
                     }
                 }
@@ -57,6 +58,10 @@ def call(String env, String awsRegion="eu-west-1") {
                     // copy ecr
                 }
 
+
+                stage("notifications") {}
+
+                stage("cleanup") {}
         } catch (ex) {
             throw ex
         }
