@@ -32,11 +32,11 @@ def call(String env, String awsRegion="eu-west-1") {
 
                             withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'BITBUCKET_USERNAME', passwordVariable: 'BITBUCKET_PASSWORD')]) {
 //                            sh '''/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${ecrRegistry} --build-arg USERNAME="$USERNAME" --build-arg PASSWORD="$PASSWORD" --no-push --tar-path image.tar'''
-                                sh '''
+                                sh """
                                     set +x
                                     echo ${ecrRegistry}
-                                    echo "$USERNAME"
-                                '''
+                                    echo "\$BITBUCKET_USERNAME"
+                                """
                             }
                         }
                     }
