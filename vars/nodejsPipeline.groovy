@@ -1,8 +1,5 @@
 import utilities.*
 
-
-
-
 def call(String env, String awsRegion="eu-west-1") {
     String template = "nodejs"
     def renderer= new podTemplateRenderer()
@@ -26,7 +23,7 @@ def call(String env, String awsRegion="eu-west-1") {
                     if (env == "DEV" || env == "SIT") {
                         container('kaniko') {
                             withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'BITBUCKET_USERNAME', passwordVariable: 'BITBUCKET_PASSWORD')]) {
-                                sh "set+x && ls -a"
+                                sh "set +x && ls -a"
                                 sh "pwd"
                                 sh "set +x && /kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${ecrRegistry} --build-arg USERNAME=\$BITBUCKET_USERNAME --build-arg PASSWORD=\$BITBUCKET_PASSWORD --no-push --tar-path image.tar"
                             }
@@ -59,9 +56,6 @@ def call(String env, String awsRegion="eu-west-1") {
                     // run only when env is uat + prod
                     // copy ecr
                 }
-
-
-
 
         } catch (ex) {
             throw ex
