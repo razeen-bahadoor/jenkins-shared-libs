@@ -1,8 +1,8 @@
 def call(String env) {
-    def podTemplate = libraryResource('org/podtemplates/nodejs.yaml')
+    def template = libraryResource('org/podtemplates/nodejs.yaml')
     podTemplate(  podRetention: never(),
             idleMinutes: 1,
-            yaml: podTemplate) {
+            yaml: template) {
      node(POD_LABEL) {
         try {
             stage('test') {
