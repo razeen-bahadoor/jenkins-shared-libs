@@ -1,5 +1,5 @@
 def call(String env) {
-    def podTemplate = libraryResource 'org/podtemplates/nodejs.yaml'
+    def podTemplate = libraryResource('org/podtemplates/nodejs.yaml')
     podTemplate(  podRetention: never(),
             idleMinutes: 1,
             yaml: podTemplate) {
