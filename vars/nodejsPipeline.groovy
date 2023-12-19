@@ -3,7 +3,7 @@ import static test.RenderEngine.*
 
 def call(String env) {
     String template = "nodejs"
-    render("nodejs")
+    render this, "nodejs"
     def renderer= new podTemplateRenderer()
     String renderedTemplate = renderer.render(template)
     podTemplate(  podRetention: never(),
