@@ -1,4 +1,4 @@
-package utilities
+package utilities.renderer
 
 class PodTemplateRenderer implements Serializable {
     static String basePath = "podtemplates/"
