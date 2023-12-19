@@ -1,4 +1,3 @@
-
 package test
 class RenderEngine {
     static String render(String runtime) {
