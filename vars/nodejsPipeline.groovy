@@ -1,4 +1,4 @@
-import utilities.renderer.*
+import org.utilities.renderer.PodTemplateRenderer
 
 def call(String env) {
     String template = "nodejs"
