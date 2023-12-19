@@ -3,7 +3,7 @@ import utilities.*
 
 
 
-def call(String env, String awsRegion) {
+def call(String env, String awsRegion="eu-west-1") {
     String template = "nodejs"
     def renderer= new podTemplateRenderer()
     String renderedTemplate = renderer.render(template)
