@@ -35,7 +35,7 @@ def call(String env, String awsRegion="eu-west-1") {
                                 sh '''
                                     set +x
                                     echo ${ecrRegistry}
-                                    echo $#USERNAME"
+                                    echo "$USERNAME"
                                 '''
                             }
                         }
