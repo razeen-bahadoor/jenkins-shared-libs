@@ -1,4 +1,4 @@
-package org.utilities.renderer
+package org.utilities
 
 class PodTemplateRenderer implements Serializable {
     def render(String runtime) {
