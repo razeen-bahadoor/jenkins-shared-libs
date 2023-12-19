@@ -1,7 +1,7 @@
-package utilities
+package tmp
 
 class RenderEngine {
-    def String render(String runtime) {
+    static def String render(String runtime) {
             def template = libraryResource("podtemplates/${runtime}.yaml")
             return template
     }
