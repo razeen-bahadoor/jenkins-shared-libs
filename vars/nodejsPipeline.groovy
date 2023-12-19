@@ -1,6 +1,5 @@
 import utilities.*
 
-
 def call(String env) {
     String template = "nodejs"
     def renderer= new podTemplateRenderer()
@@ -11,8 +10,8 @@ def call(String env) {
      node(POD_LABEL) {
         try {
             container('ubuntu'){
-                stage('test') {
-                        echo "test ${env}"
+                stage('preBuildCheck') {
+                    preBuildChecks()
                 }
             }
 
