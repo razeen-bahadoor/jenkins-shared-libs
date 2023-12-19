@@ -1,9 +1,8 @@
-import org.utilities.PodTemplateRenderer
+import org.utilities.*
 
 def call(String env) {
     String template = "nodejs"
-    def renderer = new PodTemplateRenderer()
-    String renderedTemplate = renderer.render(template)
+    String renderedTemplate = render(template)
     podTemplate(  podRetention: never(),
             idleMinutes: 1,
             yaml: renderedTemplaten) {
