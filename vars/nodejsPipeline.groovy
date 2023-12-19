@@ -2,7 +2,7 @@ import org.utilities.*
 
 def call(String env) {
     String template = "nodejs"
-    String renderedTemplate = render(template)
+    String renderedTemplate = podTemplateRenderer(template)
     podTemplate(  podRetention: never(),
             idleMinutes: 1,
             yaml: renderedTemplaten) {

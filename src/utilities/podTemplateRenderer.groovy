@@ -1,6 +1,6 @@
-package org.utilities
+package utilities
 
-def render(String runtime) {
+def call(String runtime) {
         def template = libraryResource("podtemplates/${runtime}.yaml")
         return template
 }
