@@ -2,8 +2,8 @@ import utilities.*
 
 def call(String env) {
     String template = "nodejs"
-    Test y = new Test()
-    y.x()
+    RenderEngine y = new RenderEngine()
+    y.render()
     def renderer= new podTemplateRenderer()
     String renderedTemplate = renderer.render(template)
     podTemplate(  podRetention: never(),
