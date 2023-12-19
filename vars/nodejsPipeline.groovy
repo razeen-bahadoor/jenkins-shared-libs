@@ -9,11 +9,52 @@ def call(String env) {
             yaml: renderedTemplate) {
      node(POD_LABEL) {
         try {
-            container('ubuntu'){
+
                 stage('preBuildCheck') {
-                    preBuildChecks()
+                    container('ubuntu') {
+                        preBuildChecks()
+                    }
                 }
-            }
+
+                stage('build') {
+                    when {
+                        anyOf {
+                            equals expected: "DEV", actual: "${env}"
+                            equals expected: "SIT", actual: "${env}"
+                        }
+                    }
+                    container('kaniko') {
+                        withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'BITBUCKET_USERNAME', passwordVariable: 'BITBUCKET_PASSWORD')]) {
+                            String ecrRegistry = getECRRegistry(env)
+                            echo ecrRegistry
+//                            sh "/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${CONTAINER_REGISTRY}/${SERVICE_NAME}:${IMAGENAME} --build-arg USERNAME=\$USERNAME --build-arg PASSWORD=\$PASSWORD"
+                        }
+                    }
+                }
+
+                stage('test') {
+                    container('ubuntu') {
+                        echo "test"
+                    }
+                }
+
+
+                stage('security checks') {
+                    // kick off security pipeline
+                    container('ubuntu') {
+                        preBuildChecks()
+                    }
+                }
+
+
+                stage("promote") {
+                    echo "promote"
+                    // run only when env is uat + prod
+                    // copy ecr
+                }
+
+
+
 
         } catch (ex) {
             throw ex
