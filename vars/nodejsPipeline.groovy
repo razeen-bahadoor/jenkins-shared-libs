@@ -1,9 +1,19 @@
 import utilities.*
 
+
+
+
 def call(String env) {
     String template = "nodejs"
     def renderer= new podTemplateRenderer()
     String renderedTemplate = renderer.render(template)
+
+    // setup variables
+
+    def ecrRegistry = "${Constants.awsAccountIds[env]}.dkr.ecr.${awsRegion}.amazonaws.com"
+
+
+
     podTemplate(  podRetention: never(),
             idleMinutes: 1,
             yaml: renderedTemplate) {
@@ -20,7 +30,6 @@ def call(String env) {
                     if (env == "DEV" || env == "SIT") {
                         container('kaniko') {
                             withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'BITBUCKET_USERNAME', passwordVariable: 'BITBUCKET_PASSWORD')]) {
-                                String ecrRegistry = Constants.getECRRegistry(env, "eu-west-1")
                                 echo ecrRegistry
 //                            sh "/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${CONTAINER_REGISTRY}/${SERVICE_NAME}:${IMAGENAME} --build-arg USERNAME=\$USERNAME --build-arg PASSWORD=\$PASSWORD"
                             }

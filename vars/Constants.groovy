@@ -1,5 +1,5 @@
 class Constants {
-    private static final Map<String,String> awsAccountIds = [
+    public static final Map<String,String> awsAccountIds = [
             "DEV": "xyz",
             "SIT": "xyz",
             "UAT": "xyz",
@@ -7,9 +7,7 @@ class Constants {
     ]
 
 
-    private final String awsCrossAccountDeploymentRole = "Bounded-jenkins-crossaccount-deployment-role"
+    public final String awsCrossAccountDeploymentRole = "Bounded-jenkins-crossaccount-deployment-role"
 
-    public static String getECRRegistry(String env, String awsRegion) {
-        return "${awsAccountIds[env]}.dkr.ecr.${awsRegion}.amazonaws.com" as String
-    }
+
 }
