@@ -1,5 +1,6 @@
 def call(String env) {
-    def template = libraryResource('org/podtemplates/nodejs.yaml')
+    def renderer = new ord.utilities.podTemplateRenderer()
+    def template = renderer.render()
     podTemplate(  podRetention: never(),
             idleMinutes: 1,
             yaml: template) {
