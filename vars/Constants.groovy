@@ -1,4 +1,3 @@
-package utilities
 class Constants {
     private static final Map<String,String> awsAccountIds = [
             "DEV": "xyz",

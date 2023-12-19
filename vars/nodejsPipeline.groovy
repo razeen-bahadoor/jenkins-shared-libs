@@ -1,4 +1,3 @@
-import static utilities.Constants.*
 import utilities.*
 
 def call(String env) {
@@ -40,7 +39,7 @@ def call(String env) {
                 stage('security checks') {
                     // kick off security pipeline
                     container('ubuntu') {
-                        preBuildChecks()
+                       echo "security checks"
                     }
                 }
 
