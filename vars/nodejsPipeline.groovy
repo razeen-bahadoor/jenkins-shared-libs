@@ -31,8 +31,7 @@ def call(String env, String awsRegion="eu-west-1") {
                         container('kaniko') {
 
                             withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'BITBUCKET_USERNAME', passwordVariable: 'BITBUCKET_PASSWORD')]) {
-//
-                                sh "/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${ecrRegistry} --build-arg USERNAME=\$BITBUCKET_USERNAME --build-arg PASSWORD=\$BITBUCKET_PASSWORD --no-push --tar-path image.tar"
+                                sh "set +x && /kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${ecrRegistry} --build-arg USERNAME=\$BITBUCKET_USERNAME --build-arg PASSWORD=\$BITBUCKET_PASSWORD --no-push --tar-path image.tar"
                             }
                         }
                     }
