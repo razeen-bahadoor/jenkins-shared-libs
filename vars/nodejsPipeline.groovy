@@ -3,14 +3,14 @@ import utilities.*
 
 
 
-def call(String env) {
+def call(String env, String awsRegion) {
     String template = "nodejs"
     def renderer= new podTemplateRenderer()
     String renderedTemplate = renderer.render(template)
 
     // setup variables
 
-    def ecrRegistry = "${Constants.awsAccountIds[env]}.dkr.ecr.eu-west-1.amazonaws.com"
+    def ecrRegistry = "${Constants.awsAccountIds[env]}.dkr.ecr.${awsRegion}.amazonaws.com"
 
 
 
@@ -29,9 +29,14 @@ def call(String env) {
                 stage('build') {
                     if (env == "DEV" || env == "SIT") {
                         container('kaniko') {
+
                             withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'BITBUCKET_USERNAME', passwordVariable: 'BITBUCKET_PASSWORD')]) {
-                                echo ecrRegistry
-//                            sh "/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${CONTAINER_REGISTRY}/${SERVICE_NAME}:${IMAGENAME} --build-arg USERNAME=\$USERNAME --build-arg PASSWORD=\$PASSWORD"
+//                            sh '''/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${ecrRegistry} --build-arg USERNAME="$USERNAME" --build-arg PASSWORD="$PASSWORD" --no-push --tar-path image.tar'''
+                                sh '''
+                                    set +x
+                                    echo ${ecrRegistry}
+                                    echo $#USERNAME"
+                                '''
                             }
                         }
                     }
@@ -52,6 +57,10 @@ def call(String env) {
                     }
                 }
 
+                stage('push') {
+                    // only push if security checls passed
+                    echo "ls -a"
+                }
 
                 stage("promote") {
                     echo "promote"
