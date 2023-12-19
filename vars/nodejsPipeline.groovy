@@ -1,11 +1,12 @@
 import org.utilities
 
-def call(String env, String runtime) {
-    PodTemplateRenderer renderer = new PodTemplateRenderer(runtime)
-    def template = renderer.render()
+def call(String env) {
+    String template = "nodejs"
+    PodTemplateRenderer renderer = new PodTemplateRenderer(template)
+    String renderedTemplate = renderer.render()
     podTemplate(  podRetention: never(),
             idleMinutes: 1,
-            yaml: template) {
+            yaml: renderedTemplaten) {
      node(POD_LABEL) {
         try {
             stage('test') {
