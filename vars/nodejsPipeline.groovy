@@ -1,5 +1,5 @@
 import utilities.*
-import test.*
+import static test.*
 
 def call(String env) {
     String template = "nodejs"
