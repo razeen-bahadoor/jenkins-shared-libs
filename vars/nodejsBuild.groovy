@@ -1,5 +1,7 @@
-def call(String env) {
-    def renderer = new org.utilities.podTemplateRenderer()
+import org.utilities
+
+def call(String env, String runtime) {
+    PodTemplateRenderer renderer = new PodTemplateRenderer(runtime)
     def template = renderer.render()
     podTemplate(  podRetention: never(),
             idleMinutes: 1,

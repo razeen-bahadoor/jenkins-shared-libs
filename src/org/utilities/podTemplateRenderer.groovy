@@ -1,6 +1,8 @@
 package org.utilities
-def render() {
-    def template = libraryResource('org/podtemplates/nodejs.yaml')
-    return template
+class PodTemplateRenderer implements Serializable {
+    static String basePath = "podtemplates/"
+    def render(String runtime) {
+        def template = libraryResource("${basePath}${runtime}.yaml")
+        return template
+    }
 }
-return this
