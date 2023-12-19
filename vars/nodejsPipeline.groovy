@@ -50,7 +50,7 @@ def call(String env, String awsRegion="eu-west-1") {
 
                 stage('push') {
                     // only push if security checls passed
-                    echo "ls -a"
+                    sh "ls -a"
                 }
 
                 stage("promote") {
