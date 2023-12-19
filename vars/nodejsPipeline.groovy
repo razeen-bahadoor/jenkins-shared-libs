@@ -1,9 +1,9 @@
 import utilities.*
-import static tmp.*
+import test.*
 
 def call(String env) {
     String template = "nodejs"
-    render()
+    RenderEngine.render("nodejs")
     def renderer= new podTemplateRenderer()
     String renderedTemplate = renderer.render(template)
     podTemplate(  podRetention: never(),
