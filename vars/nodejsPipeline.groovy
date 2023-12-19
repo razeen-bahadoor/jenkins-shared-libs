@@ -1,3 +1,4 @@
+import static utilities.Constants.*
 import utilities.*
 
 def call(String env) {
