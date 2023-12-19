@@ -10,11 +10,12 @@ def call(String env) {
             yaml: renderedTemplate) {
      node(POD_LABEL) {
         try {
-            stage('test') {
-                container('ubuntu') {
-                    echo "test ${env}"
+            container('ubuntu'){
+                stage('test') {
+                        echo "test ${env}"
                 }
             }
+
         } catch (ex) {
             throw ex
         }
