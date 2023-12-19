@@ -15,7 +15,7 @@ def call(String env, String awsRegion="eu-west-1") {
 
                 stage('preBuildCheck') {
                     container('ubuntu') {
-                        echo "ls -a"
+                        sh "ls -a"
                         preBuildChecks()
                     }
                 }
