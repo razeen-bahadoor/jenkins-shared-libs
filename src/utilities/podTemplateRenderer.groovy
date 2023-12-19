@@ -1,4 +1,5 @@
-package org.utilities
+package utilities
+
 class PodTemplateRenderer implements Serializable {
     static String basePath = "podtemplates/"
     def render(String runtime) {

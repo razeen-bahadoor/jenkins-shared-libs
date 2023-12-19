@@ -1,4 +1,4 @@
-import org.utilities
+import utilities
 
 def call(String env) {
     String template = "nodejs"
