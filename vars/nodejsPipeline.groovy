@@ -10,7 +10,7 @@ def call(String env) {
 
     // setup variables
 
-    def ecrRegistry = "${Constants.awsAccountIds[env]}.dkr.ecr.${awsRegion}.amazonaws.com"
+    def ecrRegistry = "${Constants.awsAccountIds[env]}.dkr.ecr.eu-west-1.amazonaws.com"
 
 
 
