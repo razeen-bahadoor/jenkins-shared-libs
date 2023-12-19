@@ -17,19 +17,16 @@ def call(String env) {
                 }
 
                 stage('build') {
-                    when {
-                        anyOf {
-                            equals expected: "DEV", actual: "${env}"
-                            equals expected: "SIT", actual: "${env}"
-                        }
-                    }
-                    container('kaniko') {
-                        withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'BITBUCKET_USERNAME', passwordVariable: 'BITBUCKET_PASSWORD')]) {
-                            String ecrRegistry = getECRRegistry(env)
-                            echo ecrRegistry
+                    if (env == "DEV" || env == "SIT") {
+                        container('kaniko') {
+                            withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'BITBUCKET_USERNAME', passwordVariable: 'BITBUCKET_PASSWORD')]) {
+                                String ecrRegistry = getECRRegistry(env)
+                                echo ecrRegistry
 //                            sh "/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${CONTAINER_REGISTRY}/${SERVICE_NAME}:${IMAGENAME} --build-arg USERNAME=\$USERNAME --build-arg PASSWORD=\$PASSWORD"
+                            }
                         }
                     }
+
                 }
 
                 stage('test') {

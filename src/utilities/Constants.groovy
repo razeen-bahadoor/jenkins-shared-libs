@@ -7,6 +7,7 @@ class Constants {
             "PROD": "xyz"
     ]
 
+
     private final String awsCrossAccountDeploymentRole = "Bounded-jenkins-crossaccount-deployment-role"
 
     public static String getECRRegistry(String env, String awsRegion) {
