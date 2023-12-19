@@ -21,7 +21,7 @@ def call(String env) {
                     if (env == "DEV" || env == "SIT") {
                         container('kaniko') {
                             withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'BITBUCKET_USERNAME', passwordVariable: 'BITBUCKET_PASSWORD')]) {
-                                String ecrRegistry = Constants.getECRRegistry(env)
+                                String ecrRegistry = Constants.getECRRegistry(env, "eu-west-1")
                                 echo ecrRegistry
 //                            sh "/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${CONTAINER_REGISTRY}/${SERVICE_NAME}:${IMAGENAME} --build-arg USERNAME=\$USERNAME --build-arg PASSWORD=\$PASSWORD"
                             }
