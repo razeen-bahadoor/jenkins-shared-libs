@@ -4,8 +4,8 @@ import pipelinestep.base.BaseStep
 @groovy.transform.InheritConstructors
 class KanikoBuilder extends BaseStep {
 
-    KanikoBuilder() {
-        super()
+    KanikoBuilder(steps) {
+        super(steps)
     }
 
     // static void build(
