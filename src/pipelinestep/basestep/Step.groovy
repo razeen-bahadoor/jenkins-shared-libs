@@ -1,10 +1,10 @@
 package pipelinestep.base
 
-class BaseStep {
+class Step {
 
     def steps
 
-    BaseStep(steps) {
+    Step(steps) {
         this.steps = steps
     }
 
