@@ -1,4 +1,4 @@
-import static pipelinestep.build.Kaniko.build
+import pipelinestep.build.*
 import utilities.*
 
 def call(String env, String awsRegion="eu-west-1") {
@@ -25,7 +25,8 @@ def call(String env, String awsRegion="eu-west-1") {
                     if (env == "DEV" || env == "SIT") {
                         container('kaniko') {
                             withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'BITBUCKET_USERNAME', passwordVariable: 'BITBUCKET_PASSWORD')]) {
-                                build(true, containerRegistry, BITBUCKET_USERNAME, BITBUCKET_PASSWORD)
+                                Kaniko builder = new Kaniko()
+                                builder.build(true, containerRegistry, BITBUCKET_USERNAME, BITBUCKET_PASSWORD)
                             }
                         }
                     }
