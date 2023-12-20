@@ -4,7 +4,7 @@ metadata: {}
 spec:
   serviceAccount: jenkins-operator-jenkins
   containers:
-    - name: Kaniko
+    - name: kaniko
       image: gcr.io/Kaniko-project/executor:debug
       imagePullPolicy: Always
       command:
