@@ -2,7 +2,7 @@ package builders
 
 class KanikoBuilder {
 
-    static void build() {
-        println 'kaniko'
+    static String build() {
+        return 'kaniko'
     }
 }
