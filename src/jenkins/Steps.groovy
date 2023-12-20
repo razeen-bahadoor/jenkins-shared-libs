@@ -1,1 +1,2 @@
+package jenkins
 class Steps {}
