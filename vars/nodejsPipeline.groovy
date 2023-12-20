@@ -14,7 +14,7 @@ def call(BuildConfig buildConfig) {
     String template = "nodejs"
     def renderer = new podTemplateRenderer()
     String renderedTemplate = renderer.render(template)
-    
+
     // setup variables
     def containerRegistry = "${buildConfig.awsAccountIds[buildConfig.env]}.dkr.ecr.${buildConfig.awsRegion}.amazonaws.com"
     String imageTag = "imagetag"
@@ -40,7 +40,7 @@ def call(BuildConfig buildConfig) {
                         container('kaniko') {
                             withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                                 Map<String,String> kanikoConfig = [
-                                    'destination': "${containerRegistry}/${appName}:${imageTag}",
+                                    'destination': "${containerRegistry}/${buildConfig.appName}:${imageTag}",
                                     'extraArgs': " --build-arg USERNAME=${GIT_USERNAME} --build-arg PASSWORD=${GIT_PASSWORD} --no-push"
                                 ]
                                 KanikoBuilder builder = new KanikoBuilder(this, kanikoConfig)
