@@ -1,5 +1,5 @@
 package pipelinestep.build
-import pipelinestep.base.BaseStep
+import pipelinestep.basestep.Step
 
 @groovy.transform.InheritConstructors
 class KanikoBuilder extends BaseStep {
