@@ -21,13 +21,23 @@ class KanikoBuilder extends Step {
 
     void build() {
         steps.echo getScript()
-        // this.steps.sh "/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${destination} --build-arg USERNAME=${bitbucketUsername} --build-arg PASSWORD=${bitbucketPassword} --no-push --tar-path image.tar"
+    // this.steps.sh "/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${destination} --build-arg USERNAME=${bitbucketUsername} --build-arg PASSWORD=${bitbucketPassword} --no-push --tar-path image.tar"
     }
 
 
     String getScript() {
         StringBuilder builder = new StringBuilder()
-        builder.append("hello world")
+        builder.append('/kaniko/executor')
+        .append(' --dockerfile `pwd`/Dockerfile')
+        .append(' --context `pwd`')
+        .append(' --destination=')
+        .append(this.config.get("containerRegistry"))
+        .append(" --build-arg USERNAME=")
+        .append(this.config.get("gitUsername"))
+        .append(" --build-arg PASSWORD=")
+        .append(this.config.get("gitPassword"))
+        .append(" ")
+        .append(this.config.getOrDefault("extraArgs",""))
         return builder.toString()
     }
 

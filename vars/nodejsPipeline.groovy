@@ -31,7 +31,7 @@ def call(String env, String awsRegion="eu-west-1", String appName) {
                                     'containerRegistry': containerRegistry,
                                     'appName': appName,
                                     'imageTage':'xyz',
-                                    'additionalArgs': '--no-push',
+                                    'extraArgs': '--no-push',
                                     'gitUsername': GIT_USERNAME,
                                     'gitPassword' : GIT_PASSWORD
                                 ]
