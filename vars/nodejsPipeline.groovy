@@ -1,4 +1,4 @@
-import static pipeline.build.Kaniko.build
+import static pipelinestep.build.Kaniko.build
 import utilities.*
 
 def call(String env, String awsRegion="eu-west-1") {
