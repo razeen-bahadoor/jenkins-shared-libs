@@ -1,6 +1,5 @@
 package builders
 
-import jenkins.Steps
 
 static void build(context) {
     context.echo "hello"
