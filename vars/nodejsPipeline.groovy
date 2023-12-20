@@ -31,9 +31,7 @@ def call(String env, String awsRegion="eu-west-1", String appName) {
                             withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                                 Map<String,String> kanikoConfig = [
                                     'destination': "${containerRegistry}/${appName}:${imageTag}",
-                                    'extraArgs': '--no-push',
-                                    'gitUsername': GIT_USERNAME,
-                                    'gitPassword' : GIT_PASSWORD
+                                    'extraArgs': " --build-arg USERNAME=${GIT_USERNAME} --build-arg PASSWORD=${GIT_PASSWORD} --no-push"
                                 ]
                                 KanikoBuilder builder = new KanikoBuilder(this, kanikoConfig)
                                 builder.build()

@@ -31,13 +31,8 @@ class KanikoBuilder extends Step {
         .append(' --context `pwd`')
         .append(' --destination=')
         .append(this.config.get("destination"))
-        .append(" --build-arg USERNAME=")
-        .append(this.config.get("gitUsername"))
-        .append(" --build-arg PASSWORD=")
-        .append(this.config.get("gitPassword"))
         .append(" ")
         .append(this.config.getOrDefault("extraArgs",""))
-        .append(" ")
         return builder.toString()
     }
 
