@@ -5,7 +5,7 @@ spec:
   serviceAccount: jenkins-operator-jenkins
   containers:
     - name: kaniko
-      image: gcr.io/Kaniko-project/executor:debug
+      image: gcr.io/kaniko-project/executor:debug
       imagePullPolicy: Always
       command:
         - /busybox/cat
