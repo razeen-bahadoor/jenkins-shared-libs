@@ -1,7 +1,7 @@
 import pipelinestep.build.*
 import utilities.*
 
-def call(String env, String awsRegion="eu-west-1") {
+def call(String env, String awsRegion="eu-west-1", String appName) {
     String template = "nodejs"
     def renderer= new podTemplateRenderer()
     String renderedTemplate = renderer.render(template)
@@ -17,16 +17,26 @@ def call(String env, String awsRegion="eu-west-1") {
                 stage('preBuildCheck') {
                     container('ubuntu') {
                         checkout scm
-                        // preBuildChecks()
+                    // preBuildChecks()
                     }
                 }
+
+
 
                 stage('build') {
                     if (env == "DEV" || env == "SIT") {
                         container('kaniko') {
-                            withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'BITBUCKET_USERNAME', passwordVariable: 'BITBUCKET_PASSWORD')]) {
-                                KanikoBuilder builder = new KanikoBuilder()
-                                builder.build(true, containerRegistry, BITBUCKET_USERNAME, BITBUCKET_PASSWORD)
+                            withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                                Map<String,String> kanikoConfig = [
+                                    'containerRegistry': containerRegistry,
+                                    'appName': appName,
+                                    'imageTage':'xyz',
+                                    'additionalArgs': '--no-push',
+                                    'gitUsername': GIT_USERNAME,
+                                    'gitPassword' : GIT_PASSWORD
+                                ]
+                                KanikoBuilder builder = new KanikoBuilder(this, kanikoConfig)
+                                builder.build()
                             }
                         }
                     }
@@ -55,8 +65,8 @@ def call(String env, String awsRegion="eu-west-1") {
 
                 stage("promote") {
                     echo "promote"
-                    // run only when env is uat + prod
-                    // copy ecr
+                // run only when env is uat + prod
+                // copy ecr
                 }
 
 
@@ -69,5 +79,5 @@ def call(String env, String awsRegion="eu-west-1") {
             throw ex
         }
      }
-    }
+            }
 }
