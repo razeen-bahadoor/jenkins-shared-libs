@@ -1,5 +1,5 @@
+import static builders.KanikoBuilder.build
 import utilities.*
-import static builders.KanikoBuilder.*
 
 def call(String env, String awsRegion="eu-west-1") {
     String template = "nodejs"
@@ -19,7 +19,7 @@ def call(String env, String awsRegion="eu-west-1") {
                         checkout scm
                         sh "ls -a"
                         preBuildChecks()
-                        KanikoBuilder.build()
+                        build()
                     }
                 }
 
