@@ -2,9 +2,9 @@ package pipelinestep.build
 import pipelinestep.base.BaseStep
 
 @groovy.transform.InheritConstructors
-class Kaniko extends BaseStep {
+class KanikoBuilder extends BaseStep {
 
-    Kaniko() {
+    KanikoBuilder() {
         super()
     }
 

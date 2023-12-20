@@ -25,7 +25,7 @@ def call(String env, String awsRegion="eu-west-1") {
                     if (env == "DEV" || env == "SIT") {
                         container('kaniko') {
                             withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'BITBUCKET_USERNAME', passwordVariable: 'BITBUCKET_PASSWORD')]) {
-                                Kaniko builder = new Kaniko()
+                                KanikoBuilder builder = new KanikoBuilder()
                                 builder.build(true, containerRegistry, BITBUCKET_USERNAME, BITBUCKET_PASSWORD)
                             }
                         }

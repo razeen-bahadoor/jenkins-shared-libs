@@ -5,7 +5,7 @@ class BaseStep {
     def steps
 
     class Step {
-            Step() {}
+          
     }
 
     BaseStep() {
