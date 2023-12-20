@@ -1,8 +1,10 @@
 package builders
 
 
-static void build(context) {
-    context.echo "hello"
-    //    "set +x && /kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${containerRegistry} --build-arg USERNAME=\$BITBUCKET_USERNAME --build-arg PASSWORD=\$BITBUCKET_PASSWORD --no-push --tar-path image.tar"
+static void build(
+    context, 
+    Boolean noPush = true,String destination,
+    String bitbucketUsername, String bitbucketPassword) {
+    context.sh "/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${destination} --build-arg USERNAME=${bitbucketUsername} --build-arg PASSWORD=${bitbucketPassword} --no-push --tar-path image.tar"
 
 }

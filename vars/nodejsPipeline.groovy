@@ -17,9 +17,7 @@ def call(String env, String awsRegion="eu-west-1") {
                 stage('preBuildCheck') {
                     container('ubuntu') {
                         checkout scm
-                        sh "ls -a"
                         preBuildChecks()
-                        build(this)
                     }
                 }
 
@@ -27,6 +25,8 @@ def call(String env, String awsRegion="eu-west-1") {
                     if (env == "DEV" || env == "SIT") {
                         container('Kaniko') {
                             withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'BITBUCKET_USERNAME', passwordVariable: 'BITBUCKET_PASSWORD')]) {
+                                build(this, true, containerRegistry, usernameVariable, passwordVariable)
+
                             }
                         }
                     }
