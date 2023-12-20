@@ -1,4 +1,4 @@
-package build
+package pipelinestep.build
 import pipelinestep.base.BaseStep
 
 @groovy.transform.InheritConstructors
