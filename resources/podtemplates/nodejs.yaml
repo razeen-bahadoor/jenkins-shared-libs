@@ -4,8 +4,8 @@ metadata: {}
 spec:
   serviceAccount: jenkins-operator-jenkins
   containers:
-    - name: kaniko
-      image: gcr.io/kaniko-project/executor:debug
+    - name: Kaniko
+      image: gcr.io/Kaniko-project/executor:debug
       imagePullPolicy: Always
       command:
         - /busybox/cat
