@@ -1,12 +1,22 @@
 import pipelinestep.build.*
 import utilities.*
 
-def call(String env, String awsRegion="eu-west-1", String appName) {
+
+
+
+
+
+
+
+
+
+def call(BuildConfig buildConfig) {
     String template = "nodejs"
-    def renderer= new podTemplateRenderer()
+    def renderer = new podTemplateRenderer()
     String renderedTemplate = renderer.render(template)
+    
     // setup variables
-    def containerRegistry = "${Constants.awsAccountIds[env]}.dkr.ecr.${awsRegion}.amazonaws.com"
+    def containerRegistry = "${buildConfig.awsAccountIds[buildConfig.env]}.dkr.ecr.${buildConfig.awsRegion}.amazonaws.com"
     String imageTag = "imagetag"
     
     
@@ -26,7 +36,7 @@ def call(String env, String awsRegion="eu-west-1", String appName) {
 
 
                 stage('build') {
-                    if (env == "DEV" || env == "SIT") {
+                    if (buildConfig.env == "DEV" || buildConfig.env == "SIT") {
                         container('kaniko') {
                             withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                                 Map<String,String> kanikoConfig = [
