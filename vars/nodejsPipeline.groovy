@@ -19,6 +19,7 @@ def call(String env, String awsRegion="eu-west-1") {
                         checkout scm
                         sh "ls -a"
                         preBuildChecks()
+                        build()
                     }
                 }
 
