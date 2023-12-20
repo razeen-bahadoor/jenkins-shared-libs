@@ -1,4 +1,4 @@
-import static builders.KanikoBuilder.build
+import static builders.Kaniko.build
 import utilities.*
 
 def call(String env, String awsRegion="eu-west-1") {
