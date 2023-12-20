@@ -4,10 +4,6 @@ class BaseStep {
 
     def steps
 
-    class Step {
-          
-    }
-
     BaseStep() {
         this.steps = new Step()
     }
