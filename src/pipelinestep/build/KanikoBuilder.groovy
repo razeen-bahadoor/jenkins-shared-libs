@@ -27,7 +27,7 @@ class KanikoBuilder extends Step {
 
     String getScript() {
         StringBuilder builder = new StringBuilder()
-        builder.append("test")
+        builder.append("hello world")
         return builder.toString()
     }
 
