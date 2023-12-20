@@ -1,4 +1,4 @@
-package pipelinestep.base
+package pipelinestep.basestep
 
 class Step {
 
