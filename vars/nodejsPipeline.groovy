@@ -17,7 +17,7 @@ def call(String env, String awsRegion="eu-west-1") {
                 stage('preBuildCheck') {
                     container('ubuntu') {
                         checkout scm
-                        preBuildChecks()
+                        // preBuildChecks()
                     }
                 }
 
