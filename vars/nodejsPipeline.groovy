@@ -7,7 +7,9 @@ def call(String env, String awsRegion="eu-west-1", String appName) {
     String renderedTemplate = renderer.render(template)
     // setup variables
     def containerRegistry = "${Constants.awsAccountIds[env]}.dkr.ecr.${awsRegion}.amazonaws.com"
-
+    String imageTag = "imagetag"
+    
+    
     podTemplate(  podRetention: never(),
             idleMinutes: 1,
             yaml: renderedTemplate) {
@@ -28,9 +30,7 @@ def call(String env, String awsRegion="eu-west-1", String appName) {
                         container('kaniko') {
                             withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                                 Map<String,String> kanikoConfig = [
-                                    'containerRegistry': containerRegistry,
-                                    'appName': appName,
-                                    'imageTage':'xyz',
+                                    'destination': "${containerRegistry}/${appName}:${imageTag}",
                                     'extraArgs': '--no-push',
                                     'gitUsername': GIT_USERNAME,
                                     'gitPassword' : GIT_PASSWORD
