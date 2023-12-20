@@ -17,6 +17,7 @@ class BuildConfig {
     String awsCrossAccountDeploymentRole
     String awsRegion
     String env
+    String appName
 
     // BuildConfig(Map<String, String> awsAccountIds, String awsCrossAccountDeploymentRole, String awsRegion, String env) {
     //         this.awsAccountIds = awsAccountIds
