@@ -16,7 +16,7 @@ class WorkflowEnforcer extends Step {
         
         } else if(!isValidPromotion(env, imageTag)) {
             this.steps.error("Pipeline aborted due to invalid image tag, A valid IMAGE_TO_DEPLOY parameter is required for ${env}. See parameter description)")
-        } else if(!isValidBuild()) {
+        } else if(!isValidBuild(env, imageTag)) {
                 this.steps.error("Pipeline aborted due to invalid image tag, no image tag required for ${env})")
         } else if(enforceConventionalCommitMessages()) {
             // TODO
