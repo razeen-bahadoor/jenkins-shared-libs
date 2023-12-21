@@ -11,10 +11,10 @@ class WorkflowEnforcer extends Step {
     }
 
     void enforce(String env, String branchType, String imageTag) {
-        if (isValidDeployment(env, branchType)) {
+        if (!isValidDeployment(env, branchType)) {
             this.steps.error("Pipeline aborted due to invalid deployment, the ${branch} may not be deployed to the ${env} environment")
         
-        } else if(isValidPromotion(env, imageTag)) {
+        } else if(!isValidPromotion(env, imageTag)) {
             this.steps.error("Pipeline aborted due to invalid promotion, Only build to PROD and UAT can be promoted by specifying a valid image tag")
         } else if(enforceConventionalCommitMessages()) {
             // TODO
@@ -26,7 +26,7 @@ class WorkflowEnforcer extends Step {
         //checks if the deployment configuration is valid absed on gitflow workflow
         //release,master & hotfix branches may only be deployed to SIT,UAT & PROD
         //develop branches may only be  deployed to develop & no other environment
-        return !((env == "DEV" && branchType != "development") || (env != "DEV" && branchType == "development"))
+        return (env == "DEV" && branchType != "development") || (env != "DEV" && branchType == "development")
     }
 
     Boolean isValidPromotion(String env,String imageTag) {
