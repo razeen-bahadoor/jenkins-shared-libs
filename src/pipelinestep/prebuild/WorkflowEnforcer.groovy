@@ -31,7 +31,7 @@ class WorkflowEnforcer extends Step {
 
     Boolean isValidPromotion(String env,String imageTag) {
         Boolean result = isValidImageTag(imageTag)
-        return (env == "UAT" || env == "PROD") && result || (env == "DEV" || env == "SIT") && !result
+        return (env == "UAT" || env == "PROD") && result || (env == "DEV" || env == "SIT") && result
     }
 
     Boolean enforceConventionalCommitMessages() {
