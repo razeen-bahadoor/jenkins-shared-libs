@@ -19,7 +19,7 @@ def call(BuildConfig buildConfig) {
         try {
 
                 stage('checkout scm') {
-                    def scmVars = checkout scm
+                    buildConfig.scmVars = checkout scm
                 }
 
                 stage('PreBuildActions') {
