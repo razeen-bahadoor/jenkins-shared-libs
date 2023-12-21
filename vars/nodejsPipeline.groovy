@@ -23,7 +23,7 @@ def call(BuildConfig buildConfig) {
                 }
 
                 stage('PreBuildActions') {
-                        def branchName = getBranchType(scmVars.GIT_BRANCH)
+                        def branchName = getBranchType(buildConfig.scmVars.GIT_BRANCH)
                         def shortCommit = getShortCommit(this)
                         echo branchName
                         echo shortCommit
