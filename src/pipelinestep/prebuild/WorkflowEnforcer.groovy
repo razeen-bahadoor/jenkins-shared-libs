@@ -26,7 +26,7 @@ class WorkflowEnforcer extends Step {
         //checks if the deployment configuration is valid absed on gitflow workflow
         //release,master & hotfix branches may only be deployed to SIT,UAT & PROD
         //develop branches may only be  deployed to develop & no other environment
-        return (env == "DEV" && branchType != "development") || (env != "DEV" && branchType == "development")
+        return (env == "DEV" && branchType == "development") || ( env != "DEV" && branchType != "development")
     }
 
     Boolean isValidPromotion(String env,String imageTag) {
