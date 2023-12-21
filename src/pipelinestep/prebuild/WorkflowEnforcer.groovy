@@ -31,12 +31,13 @@ class WorkflowEnforcer extends Step {
 
     Boolean isValidPromotion(String env,String imageTag) {
         Boolean result = isValidReleaseImageTag(imageTag)
-        return (env == "UAT" || env == "PROD") && result || (env == "DEV" || env == "SIT") && imageTag==""
+        return (env == "UAT" || env == "PROD") && result || (env == "DEV" || env == "SIT") && imageTag == ""
     }
 
     Boolean enforceConventionalCommitMessages() {
             return true
     }
+
 
     def isValidReleaseImageTag(String imageTag){
         return (imageTag ==~ /^[\w\d\.]+\-\d+\-[a-z0-9]{7}\-(release|hotfix|master)$/)
