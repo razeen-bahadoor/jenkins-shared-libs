@@ -8,7 +8,6 @@ class WorkflowEnforcer extends Step {
 
     WorkflowEnforcer(steps) {
         super(steps)
-        this.config = config
     }
 
     void enforce(String env, String branchType, String imageTag) {
