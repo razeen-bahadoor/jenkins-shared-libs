@@ -27,7 +27,7 @@ def call(BuildConfig buildConfig) {
                         String branchType = getBranchType(buildConfig.scmVars.GIT_BRANCH)
                         String shortCommit = getShortCommit(this)
                         String version = (readJSON(file: 'package.json')).version
-                        imageTag = buildConfig.env == "UAT" || buildConfig.env == "PROD" ? buildConfig.imageTag : "${version}-${BUILD_NUMBER}-${shortCommit}-${branchType}"
+                        imageTag = buildConfig.env == "UAT" || buildConfig.env == "PROD" ? buildConfig.imageToDeploy : "${version}-${BUILD_NUMBER}-${shortCommit}-${branchType}"
                         echo imageTag
                 }
 

@@ -5,7 +5,7 @@ class BuildConfig {
     String env
     String appName
     String appType
-    String imageTag = ""
+    String imageToDeploy = ""
     def scmVars
 }
      
