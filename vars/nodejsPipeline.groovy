@@ -1,14 +1,6 @@
+import static utilities.GitUtilities.*
 import pipelinestep.build.*
 import utilities.*
-
-
-
-
-
-
-
-
-
 
 def call(BuildConfig buildConfig) {
     String template = "nodejs"
@@ -17,23 +9,34 @@ def call(BuildConfig buildConfig) {
 
     // setup variables
     def containerRegistry = "${buildConfig.awsAccountIds[buildConfig.env]}.dkr.ecr.${buildConfig.awsRegion}.amazonaws.com"
-    String imageTag = "imagetag"
-    
-    
+
+
+
     podTemplate(  podRetention: never(),
             idleMinutes: 1,
             yaml: renderedTemplate) {
      node(POD_LABEL) {
         try {
 
-                stage('preBuildCheck') {
-                    container('ubuntu') {
-                        checkout scm
-                    // preBuildChecks()
-                    }
+                stage('checkout scm') {
+                    def scmVars = checkout scm
+                }
+
+                stage('PreBuildActions') {
+                        def branchName = getBranchType(scmVars.GIT_BRANCH)
+                        def shortCommit = getShortCommit(this)
+                        echo branchName
+                        echo shortCommit
                 }
 
 
+                stage('PreBuildWorkflowEnforcement') {
+                    container('ubuntu') {
+                       
+                    }
+                }
+
+                // What stands in the way becomes the way~Marcus Aurelius
 
                 stage('build') {
                     if (buildConfig.env == "DEV" || buildConfig.env == "SIT") {
