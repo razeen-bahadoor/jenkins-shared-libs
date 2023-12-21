@@ -30,7 +30,7 @@ class WorkflowEnforcer extends Step {
     }
 
     Boolean isValidPromotion(String env,String imageTag) {
-        Boolean result = isValidImageTag(imageTag)
+        Boolean result = isValidReleaseImageTag(imageTag)
         return (env == "UAT" || env == "PROD") && result || (env == "DEV" || env == "SIT") && imageTag==""
     }
 
@@ -42,7 +42,7 @@ class WorkflowEnforcer extends Step {
         return (imageTag ==~ /^[\w\d\.]+\-\d+\-[a-z0-9]{7}\-(release|hotfix|master)$/)
     }
 
-    
+
 
 }
 
