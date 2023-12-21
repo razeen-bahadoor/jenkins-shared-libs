@@ -15,9 +15,7 @@ class WorkflowEnforcer extends Step {
             this.steps.error("Pipeline aborted due to invalid deployment, ${branchType} branch may not be deployed to the ${env} environment")
         
         } else if(!isValidPromotion(env, imageTag)) {
-            this.steps.error("Pipeline aborted due to invalid image tag, A valid IMAGE_TO_DEPLOY parameter is required for ${env}. See parameter description)")
-        } else if(!isValidBuild(env, imageTag)) {
-                this.steps.error("Pipeline aborted due to invalid image tag, no image tag required for ${env})")
+            this.steps.error("Pipeline aborted due to invalid promotion, Only build to PROD and UAT can be promoted by specifying a valid image tag")
         } else if(enforceConventionalCommitMessages()) {
             // TODO
         } 
@@ -32,16 +30,11 @@ class WorkflowEnforcer extends Step {
     }
 
     Boolean isValidPromotion(String env,String imageTag) {
-        return (env == "UAT" || env == "PROD") && isValidReleaseImageTag(imageTag) 
+        Boolean result = isValidReleaseImageTag(imageTag)
+        return (env == "UAT" || env == "PROD") && result || (env == "DEV" || env == "SIT") && imageTag == ""
     }
 
 
-    Boolean isValidBuild(String env,String imageTag) {
-        // checks if env is dev or sit & no image tage specified
-        // in groovy an empty string is consider falsey
-        return (env == "DEV" || env == "SIT") && imageTag 
-    
-    }
 
     Boolean enforceConventionalCommitMessages() {
             return true
