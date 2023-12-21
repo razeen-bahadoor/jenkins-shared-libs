@@ -29,9 +29,12 @@ def call(BuildConfig buildConfig) {
                         String branchType = getBranchType(buildConfig.scmVars.GIT_BRANCH)
                         String shortCommit = getShortCommit(this)
                         String version = (readJSON(file: 'package.json')).version
-                        imageTag = buildConfig.env == "UAT" || buildConfig.env == "PROD" ? buildConfig.imageToDeploy : "${version}-${BUILD_NUMBER}-${shortCommit}-${branchType}"
                         WorkflowEnforcer workflowEnforcer = new WorkflowEnforcer(this)
-                        workflowEnforcer.enforce(buildConfig.env, branchType, imageTag)
+                        workflowEnforcer.enforce(buildConfig.env, branchType, buildConfig.imageToDeploy)
+
+
+                        imageTag = buildConfig.env == "UAT" || buildConfig.env == "PROD" ? buildConfig.imageToDeploy : "${version}-${BUILD_NUMBER}-${shortCommit}-${branchType}"
+
                 }   
 
 
