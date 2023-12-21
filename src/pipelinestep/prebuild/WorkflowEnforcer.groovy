@@ -11,8 +11,8 @@ class WorkflowEnforcer extends Step {
         this.config = config
     }
 
-    void enforce(String env, String branch, String imageTag) {
-        if (isValidDeployment(env, branch)) {
+    void enforce(String env, String branchType, String imageTag) {
+        if (isValidDeployment(env, branchType)) {
             this.steps.error("Pipeline aborted due to invalid deployment, the ${branch} may not be deployed to the ${env} environment")
         
         } else if(isValidPromotion(env, imageTag)) {
@@ -23,11 +23,11 @@ class WorkflowEnforcer extends Step {
     }
 
 
-    Boolean isValidDeployment(String env, String branch) {
+    Boolean isValidDeployment(String env, String branchType) {
         //checks if the deployment configuration is valid absed on gitflow workflow
         //release,master & hotfix branches may only be deployed to SIT,UAT & PROD
         //develop branches may only be  deployed to develop & no other environment
-        return !((env == "DEV" && branch != "DEV") || (env != "DEV" && branch == "DEV"))
+        return !((env == "DEV" && branchType != "development") || (env != "DEV" && branchType == "development"))
     }
 
     Boolean isValidPromotion(String env,String imageTag) {

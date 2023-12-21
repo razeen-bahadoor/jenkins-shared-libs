@@ -1,5 +1,7 @@
 import static utilities.GitUtilities.*
 import pipelinestep.build.*
+import pipelinestep.prebuild.*
+
 import utilities.*
 
 def call(BuildConfig buildConfig) {
@@ -28,8 +30,9 @@ def call(BuildConfig buildConfig) {
                         String shortCommit = getShortCommit(this)
                         String version = (readJSON(file: 'package.json')).version
                         imageTag = buildConfig.env == "UAT" || buildConfig.env == "PROD" ? buildConfig.imageToDeploy : "${version}-${BUILD_NUMBER}-${shortCommit}-${branchType}"
-                        echo imageTag
-                }
+                        WorkflowEnforcer workflowEnforcer = new WorkflowEnforcer(this)
+                        workflowEnforcer.enforce(buildConfig.env, branchType, imageTag)
+                }   
 
 
                 stage('PreBuildWorkflowEnforcement') {
