@@ -3,13 +3,14 @@ import pipelinestep.build.*
 import utilities.*
 
 def call(BuildConfig buildConfig) {
-    String template = "nodejs"
+
     def renderer = new podTemplateRenderer()
-    String renderedTemplate = renderer.render(template)
+    String renderedTemplate = renderer.render(buildConfig.appType)
 
     // setup variables
     def containerRegistry = "${buildConfig.awsAccountIds[buildConfig.env]}.dkr.ecr.${buildConfig.awsRegion}.amazonaws.com"
 
+    
 
 
     podTemplate(  podRetention: never(),
@@ -25,8 +26,7 @@ def call(BuildConfig buildConfig) {
                 stage('PreBuildActions') {
                         def branchName = getBranchType(buildConfig.scmVars.GIT_BRANCH)
                         def shortCommit = getShortCommit(this)
-                        echo branchName
-                        echo shortCommit
+
                 }
 
 

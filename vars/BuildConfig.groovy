@@ -4,6 +4,7 @@ class BuildConfig {
     String awsRegion
     String env
     String appName
+    String appType
     String imageTag = ""
     def scmVars
 }
