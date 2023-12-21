@@ -9,7 +9,7 @@ def call(BuildConfig buildConfig) {
 
     // setup variables
     def containerRegistry = "${buildConfig.awsAccountIds[buildConfig.env]}.dkr.ecr.${buildConfig.awsRegion}.amazonaws.com"
-
+    String imageTag
     
 
 
@@ -24,9 +24,11 @@ def call(BuildConfig buildConfig) {
                 }
 
                 stage('PreBuildActions') {
-                        def branchName = getBranchType(buildConfig.scmVars.GIT_BRANCH)
-                        def shortCommit = getShortCommit(this)
-
+                        String branchType = getBranchType(buildConfig.scmVars.GIT_BRANCH)
+                        String shortCommit = getShortCommit(this)
+                        String version packagejson = (readJSON file: 'package.json').version
+                        imageTag = buildConfig.env == "UAT" || buildConfig.env == "PROD" ? buildConfig.imageTag : "${version}-${BUILD_NUMBER}-${shortCommit}-${branchType}"
+                        echo imageTag
                 }
 
 
