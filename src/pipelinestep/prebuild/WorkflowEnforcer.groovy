@@ -39,7 +39,7 @@ class WorkflowEnforcer extends Step {
     }
 
     def isValidImageTag(String imageTag){
-        def matcher = (name ==~ /^[\w\d\.]+\-\d+\-[a-z0-9]{7}\-(release|hotfix|master)$/)
+        def matcher = (imageTag ==~ /^[\w\d\.]+\-\d+\-[a-z0-9]{7}\-(release|hotfix|master)$/)
         return matcher.matches()
     }
 }
