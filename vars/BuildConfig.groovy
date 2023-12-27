@@ -6,6 +6,9 @@ class BuildConfig {
     String appName
     String appType
     String imageToDeploy = ""
+    String helmChartRepo
+    String helmChartValuesPath
+    String helmChartRepoBaseURL
     def scmVars
 }
      

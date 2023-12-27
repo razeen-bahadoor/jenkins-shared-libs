@@ -1,31 +1,23 @@
 package pipelinestep.build
-import pipelinestep.basestep.Step
 import java.lang.StringBuilder
 
-@groovy.transform.InheritConstructors
-class KanikoBuilder extends Step {
+class KanikoBuilder {
 
-    Map<String, String> config
 
-    KanikoBuilder(steps, Map<String, String> config) {
-        super(steps)
-        this.config = config
-    }
-
-    void build() {
-        this.steps.sh getScript()
+    static void build(steps, Map<String, String> config) {
+        steps.sh getScript(steps, config)
     }
 
 
-    String getScript() {
+    String getScript(steps, Map<String, String> config) {
         StringBuilder builder = new StringBuilder()
         builder.append('/kaniko/executor')
         .append(' --dockerfile `pwd`/Dockerfile')
         .append(' --context `pwd`')
         .append(' --destination=')
-        .append(this.config.get("destination"))
+        .append(config.get("destination"))
         .append(" ")
-        .append(this.config.getOrDefault("extraArgs",""))
+        .append(config.getOrDefault("extraArgs",""))
         return builder.toString()
     }
 

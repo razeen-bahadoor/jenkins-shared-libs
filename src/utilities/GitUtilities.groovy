@@ -15,4 +15,21 @@ class GitUtilities {
             returnStdout: true, script: "git log -n 1 --pretty=format:'%h'"
         ).trim()  
     }
+
+    static void gitClone(steps, String repoURL) {
+        steps.sh "git clone ${repoURL}"
+    }
+
+
+    static String getCloneURL(String baseURL, String repoName) {
+        return "${baseURL}/${repoName}.git"
+    }
+
+    static void stageCommit(steps,String message) {
+        steps.sh "git commit -m ${message} --all"
+    }
+
+    static void gitPush(steps) {
+        steps.sh "git push"
+    }
 }
