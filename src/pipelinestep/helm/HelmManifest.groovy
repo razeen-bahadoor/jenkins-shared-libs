@@ -8,7 +8,9 @@ class HelmManifest {
         steps.sh "pwd"
         steps.sh "cd ../ && pwd && ls -a"
         gitClone(steps, helmChartRepoURL)
+        steps.sh "ls -a"
         steps.sh "cd ${config.helmChartRepo}"
+        steps.sh "ls -a"
         updateImageTag(steps, config.helmChartValuesPath, config.imageToDeploy, config.env, config.appName)
     }
 
