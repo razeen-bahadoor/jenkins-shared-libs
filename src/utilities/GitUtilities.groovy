@@ -26,7 +26,8 @@ class GitUtilities {
     }
 
     static void stageCommit(steps,String message) {
-        steps.sh "git commit -m \"${message}\" --all"
+        steps.sh "git add -A"
+        steps.sh "git commit -m \"${message}\""
     }
 
     static void gitPush(steps) {
