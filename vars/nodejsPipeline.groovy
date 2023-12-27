@@ -83,26 +83,18 @@ def call(BuildConfig buildConfig) {
                     }
                 }
 
+
                 stage("Update Helm Chart") {
                   dir('helm-repo') {
-                    String helmChartRepoURL = getCloneURL(config.helmChartRepoBaseURL, config.helmChartRepo)
-                    gitClone(steps, helmChartRepoURL)
-                    dir(config.helmChartRepo) {
-                        update(this, [
-                            "helmChartRepoBaseURL": buildConfig.helmChartRepoBaseURL,
-                            "helmChartRepo": buildConfig.helmChartRepo,
-                            "helmChartValuesPath": buildConfig.helmChartValuesPath,
-                            "imageToDeploy": imageTag,
-                            "env": buildConfig.env,
-                            "appName": buildConfig.appName
-                        ])
-
-
-                        sh "git config  user.name 'Jenkins User'"
-                        sh "git config  user.email '<>'"
-                        stageCommit(steps, "Updates ${appName} image on ${env} to ${imageToDeploy}")
-                        gitPush(steps) 
-                    }
+                    
+                    update(this, [
+                        "helmChartRepoBaseURL": buildConfig.helmChartRepoBaseURL,
+                        "helmChartRepo": buildConfig.helmChartRepo,
+                        "helmChartValuesPath": buildConfig.helmChartValuesPath,
+                        "imageToDeploy": imageTag,
+                        "env": buildConfig.env,
+                        "appName": buildConfig.appName
+                    ])
                   }
                 }
 
