@@ -86,12 +86,12 @@ def call(BuildConfig buildConfig) {
                 stage("Update Helm Chart") {
                   
                     update(this, [
-                        "helmChartRepoBaseURL": config.helmChartRepoBaseURL,
-                        "helmChartRepo": config.helmChartRepo,
-                        "helmChartValuesPath": config.helmChartValuesPath,
+                        "helmChartRepoBaseURL": buildConfig.helmChartRepoBaseURL,
+                        "helmChartRepo": buildConfig.helmChartRepo,
+                        "helmChartValuesPath": buildConfig.helmChartValuesPath,
                         "imageToDeploy": imageTag,
-                        "env": config.env,
-                        "appName": config.appName
+                        "env": buildConfig.env,
+                        "appName": buildConfig.appName
                     ])
                 }
 
