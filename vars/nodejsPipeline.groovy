@@ -85,6 +85,8 @@ def call(BuildConfig buildConfig) {
 
 
                 stage("Update Helm Chart") {
+                withCredentials([usernamePassword(credentialsId: 'bitbucket-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+   
                     update(this, [
                         "helmChartRepoBaseURL": buildConfig.helmChartRepoBaseURL,
                         "helmChartRepo": buildConfig.helmChartRepo,
@@ -93,7 +95,7 @@ def call(BuildConfig buildConfig) {
                         "env": buildConfig.env,
                         "appName": buildConfig.appName
                     ])
-                  
+                }
                 }
 
 
