@@ -7,6 +7,7 @@ class HelmManifest {
         String helmChartRepoURL = getCloneURL(config.helmChartRepoBaseURL, config.helmChartRepo)
         gitClone(steps, helmChartRepoURL)
         steps.dir(config.helmChartRepo) {
+            steps.sh "pwd && ls -a"
             updateImageTag(steps, config.helmChartValuesPath, config.imageToDeploy, config.env, config.appName)
             steps.sh "git config  user.name 'Jenkins User'"
             steps.sh "git config  user.email '<>'"
