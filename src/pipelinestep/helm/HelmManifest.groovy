@@ -11,7 +11,7 @@ class HelmManifest {
     }
 
     static void updateImageTag(steps,String valuesFile, String imageToDeploy,String env, String appName) {
-        steps.sh "sed -ri \'s/^\\s*tag\\s*:.*\$/    tag: \'${imageToDeploy}\'/\' ${valuesFile}"
+        steps.sh "sed -ri \'s/^\\s*tag\\s*:.*\$/    tag: \'${imageToDeploy}\'/\' ${valuesFile}/values.yaml"
         steps.sh "git config  user.name 'Jenkins User'"
         steps.sh "git config  user.email '<>'"
         stageCommit(steps, "Updates ${appName} image on ${env} to ${imageToDeploy}")
