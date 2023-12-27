@@ -1,4 +1,5 @@
 package pipelinestep.prebuild
+
 import static utilities.ImageUtilities.isValidReleaseImageTag
 
 
@@ -14,7 +15,7 @@ class WorkflowEnforcer  {
         } else if(!isValidPromotion(env, imageTag)) {
             steps.error("Pipeline aborted due to invalid promotion, Only build to PROD and UAT can be promoted by specifying a valid image tag")
         } else if(enforceConventionalCommitMessages()) {
-            // TODO
+        // TODO
         } 
     }
 

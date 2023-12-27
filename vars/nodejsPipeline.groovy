@@ -1,8 +1,8 @@
 import static utilities.GitUtilities.*
 import static utilities.ImageUtilities.generateImageTag
-import static pipelinestep.build.KanikoBuilder as KanikoBuilder
-import static pipelinestep.prebuild.WorkflowEnforcer as WorkflowEnforcer
-import static pipelinestep.helm.HelmManifest as HelmChart
+import static pipelinestep.build.KanikoBuilder.build
+import static pipelinestep.prebuild.WorkflowEnforcer.enforce
+import static pipelinestep.helm.HelmManifest.update
 
 import utilities.*
 
@@ -34,7 +34,7 @@ def call(BuildConfig buildConfig) {
                         String branchType = getBranchType(buildConfig.scmVars.GIT_BRANCH)
                         String shortCommit = getShortCommit(this)
                         String version = (readJSON(file: 'package.json')).version
-                        WorkflowEnforcer.enforce(this, buildConfig.env, branchType, buildConfig.imageToDeploy)
+                        enforce(this, buildConfig.env, branchType, buildConfig.imageToDeploy)
                         imageTag = buildConfig.env == "UAT" || buildConfig.env == "PROD" ? buildConfig.imageToDeploy : generateImageTag( version, $BUILD_NUMBER, shortCommit, branchType)
                 }
 
@@ -48,7 +48,7 @@ def call(BuildConfig buildConfig) {
                                     'destination': "${containerRegistry}/${buildConfig.appName}:${imageTag}",
                                     'extraArgs': " --build-arg USERNAME=${GIT_USERNAME} --build-arg PASSWORD=${GIT_PASSWORD} --no-push"
                                 ]
-                                KanikoBuilder.build(this, kanikoConfig)
+                                build(this, kanikoConfig)
                             }
                         }
                     }
@@ -85,7 +85,7 @@ def call(BuildConfig buildConfig) {
 
                 stage("Update Helm Chart") {
                   
-                    HelmChart.update(this, [
+                    update(this, [
                         "helmChartRepoBaseURL": config.helmChartRepoBaseURL,
                         "helmChartRepo": config.helmChartRepo,
                         "helmChartValuesPath": config.helmChartValuesPath,

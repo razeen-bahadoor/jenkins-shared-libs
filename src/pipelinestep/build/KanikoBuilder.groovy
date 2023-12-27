@@ -1,4 +1,5 @@
 package pipelinestep.build
+
 import java.lang.StringBuilder
 
 class KanikoBuilder {
