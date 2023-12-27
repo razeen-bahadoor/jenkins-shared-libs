@@ -12,7 +12,7 @@ class HelmManifest {
                 updateImageTag(steps, config.helmChartValuesPath, config.imageToDeploy)
                 steps.sh "git config  user.name 'Jenkins User'"
                 steps.sh "git config  user.email '<>'"
-                stageCommit(steps, "Updates ${cpnfig.appName} image on ${config.env} to ${config.imageToDeploy}")
+                stageCommit(steps, "Updates ${config.appName} image on ${config.env} to ${config.imageToDeploy}")
                 gitPush(steps)
             }
         }
