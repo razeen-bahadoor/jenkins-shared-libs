@@ -5,10 +5,9 @@ class HelmManifest {
 
     static void update(steps,Map<String,String> config) {
         String helmChartRepoURL = getCloneURL(config.helmChartRepoBaseURL, config.helmChartRepo)
-        steps.sh "pwd && ls -a"
         gitClone(steps, helmChartRepoURL)
-        steps.sh "pwd && ls -a"
         steps.sh "cd ${config.helmChartRepo}"
+        steps.sh "pwd && ls -a"
         updateImageTag(steps, config.helmChartValuesPath, config.imageToDeploy, config.env, config.appName)
     }
 
