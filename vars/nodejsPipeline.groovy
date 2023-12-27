@@ -35,7 +35,7 @@ def call(BuildConfig buildConfig) {
                         String shortCommit = getShortCommit(this)
                         String version = (readJSON(file: 'package.json')).version
                         enforce(this, buildConfig.env, branchType, buildConfig.imageToDeploy)
-                        imageTag = buildConfig.env == "UAT" || buildConfig.env == "PROD" ? buildConfig.imageToDeploy : generateImageTag( version, $BUILD_NUMBER, shortCommit, branchType)
+                        imageTag = buildConfig.env == "UAT" || buildConfig.env == "PROD" ? buildConfig.imageToDeploy : generateImageTag(version, $BUILD_NUMBER, shortCommit, branchType)
                 }
 
                 // What stands in the way becomes the way~Marcus Aurelius
