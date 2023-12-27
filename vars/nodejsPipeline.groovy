@@ -84,15 +84,15 @@ def call(BuildConfig buildConfig) {
                 }
 
                 stage("Update Helm Chart") {
-                    Map<String,String> config = [
+                  
+                    HelmChart.update(this, [
                         "helmChartRepoBaseURL": config.helmChartRepoBaseURL
                         "helmChartRepo": config.helmChartRepo
                         "helmChartValuesPath": config.helmChartValuesPath
                         "imageToDeploy": imageTag
                         "env": config.env
                         "appName": config.appName
-                    ]
-                    HelmChart.update(this, config)
+                    ])
                 }
 
 
